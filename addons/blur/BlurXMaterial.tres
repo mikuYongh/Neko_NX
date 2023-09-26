@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c0gi1nyk3xxwb"]
+
+[ext_resource type="Shader" path="res://addons/Neko_NX/blur/Blur.gdshader" id="1_ccvuq"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_ccvuq")
+shader_parameter/step = Vector2(1, 0)
+shader_parameter/radius = 6.0

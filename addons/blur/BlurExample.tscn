@@ -1,0 +1,106 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvuimx7pvvkrs"]
+
+[ext_resource type="Script" path="res://addons/Neko_NX/blur/BlurExample.gd" id="1_1kp6q"]
+[ext_resource type="Material" uid="uid://cotb87h40r4gp" path="res://addons/Neko_NX/blur/BlurYMaterial.tres" id="1_dlvcd"]
+[ext_resource type="Material" uid="uid://c0gi1nyk3xxwb" path="res://addons/Neko_NX/blur/BlurXMaterial.tres" id="1_i28u4"]
+[ext_resource type="Texture2D" uid="uid://b4crlvg5q271v" path="res://addons/Neko_NX/blur/icon.svg" id="2_a11mo"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1kp6q")
+
+[node name="BlurY" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+material = ExtResource("1_dlvcd")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="BlurY"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="BlurX" type="SubViewportContainer" parent="BlurY/SubViewport"]
+unique_name_in_owner = true
+material = ExtResource("1_i28u4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="BlurY/SubViewport/BlurX"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Sprite2D1" type="Sprite2D" parent="BlurY/SubViewport/BlurX/SubViewport"]
+texture_filter = 1
+position = Vector2(32, 32)
+texture = ExtResource("2_a11mo")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="BlurY/SubViewport/BlurX/SubViewport"]
+texture_filter = 1
+position = Vector2(192, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("2_a11mo")
+centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="BlurY/SubViewport/BlurX/SubViewport"]
+texture_filter = 3
+texture_repeat = 2
+position = Vector2(32, 192)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_a11mo")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 512)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Blur radius:"
+
+[node name="BlurRadiusSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 50.0
+step = 0.0
+value = 10.0
+
+[node name="BlurRadiusLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
