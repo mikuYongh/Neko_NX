@@ -3,7 +3,7 @@ extends EditorPlugin
 var transparency = 0.65;#透明度
 var ambiguity = 6;#模糊度
 var brgn:NekoBackground;
-
+@export_enum("immerse","normal") var mode="immerse";
 var baseNode;
 func _ready():
 	_load();
@@ -14,8 +14,13 @@ func _load():
 	brgn.get_node("BlurY/SubViewport/BlurX/SubViewport/background").texture=preload("res://addons/Neko_NX/background.jpg")
 	brgn.get_node("BlurY").material.set_shader_parameter("radius", ambiguity)
 	brgn.get_node("BlurY/SubViewport/BlurX").material.set_shader_parameter("radius", ambiguity)
-	baseNode.get_parent().add_child(brgn);
-	baseNode.get_parent().move_child(brgn,0)
+	match mode:
+		"immerse":
+				baseNode.get_parent().add_child(brgn);
+				baseNode.get_parent().move_child(brgn,0);
+		"normal":
+				baseNode.add_child(brgn);
+				baseNode.move_child(brgn,0);
 	
 	baseNode.modulate=Color(1,1,1,transparency)
 	pass
